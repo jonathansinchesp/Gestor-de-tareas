@@ -1,0 +1,40 @@
+{% extends 'tareas/base.html' %}
+
+{% block content %}
+<div class="formulario-contenedor">
+    <h2>
+        {% if form.instance.id %}✏️ Editar Tarea
+        {% else %}➕ Crear Nueva Tarea{% endif %}
+    </h2>
+
+    <form method="POST" class="formulario-tarea">
+        {% csrf_token %}
+        
+        <div class="campo">
+            <label for="id_titulo">Título:</label>
+            {{ form.titulo }}
+            {% if form.titulo.errors %}
+            <div class="error">{{ form.titulo.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="campo">
+            <label for="id_descripcion">Descripción:</label>
+            {{ form.descripcion }}
+        </div>
+
+        <div class="campo">
+            <label for="id_estado">Estado:</label>
+            {{ form.estado }}
+        </div>
+
+        <div class="botones">
+            <button type="submit" class="btn-guardar">
+                {% if form.instance.id %}💾 Guardar Cambios
+                {% else %}✅ Crear Tarea{% endif %}
+            </button>
+            <a href="{% url 'lista_tareas' %}" class="btn-cancelar">↩️ Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

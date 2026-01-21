@@ -1,0 +1,36 @@
+{% extends 'tareas/base.html' %}
+
+{% block content %}
+<h2>📋 Lista de Tareas</h2>
+
+{% if tareas %}
+    <div class="tareas-lista">
+        {% for tarea in tareas %}
+        <div class="tarea {% if tarea.estado == 'completada' %}completada{% elif tarea.estado == 'en_progreso' %}en-progreso{% endif %}">
+            <div class="tarea-info">
+                <h3>{{ tarea.titulo }}</h3>
+                <p class="descripcion">{{ tarea.descripcion|default:"Sin descripción" }}</p>
+                <div class="meta">
+                    <span class="estado estado-{{ tarea.estado }}">
+                        {% if tarea.estado == 'pendiente' %}⏳
+                        {% elif tarea.estado == 'en_progreso' %}🚧
+                        {% else %}✅{% endif %}
+                        {{ tarea.get_estado_display }}
+                    </span>
+                    <span class="fecha">📅 {{ tarea.fecha_creacion|date:"d/m/Y H:i" }}</span>
+                </div>
+            </div>
+            <div class="tarea-acciones">
+                <a href="{% url 'editar_tarea' tarea.id %}" class="btn-editar">✏️ Editar</a>
+                <a href="{% url 'eliminar_tarea' tarea.id %}" class="btn-eliminar">🗑️ Eliminar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="sin-tareas">
+        <p>🎉 No hay tareas pendientes.</p>
+        <a href="{% url 'crear_tarea' %}" class="btn-crear">Crear mi primera tarea</a>
+    </div>
+{% endif %}
+{% endblock %}

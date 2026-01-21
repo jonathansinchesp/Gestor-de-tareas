@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tareas/estilos.css' %}">
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>📝 Gestor de Tareas</h1>
+            <nav>
+                <a href="{% url 'lista_tareas' %}">🏠 Inicio</a>
+                <a href="{% url 'crear_tarea' %}">➕ Nueva Tarea</a>
+                <a href="/admin/" target="_blank">⚙️ Admin</a>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}
+            <!-- Aquí va el contenido de cada página -->
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>Desarrollado con Django | Actividad Práctica 3</p>
+        </footer>
+    </div>
+</body>
+</html>
